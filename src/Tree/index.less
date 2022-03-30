@@ -1,0 +1,27 @@
+.stand-tree-node {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  
+    .stand-tree-node-content {
+      user-select: none;
+    }
+  
+    .stand-tree-node-expand-arrow {
+      font-size: 12px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      color: #808080;
+      transition: transform ease 0.3s;
+      &.open {
+        transform: rotate(90deg);
+      }
+      &.close {
+        transform: rotate(0deg);
+      }
+    }
+  }
