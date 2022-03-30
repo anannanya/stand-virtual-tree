@@ -18,7 +18,8 @@ export function TreeNode<
 >(props: ITreeProps<ITreeNodeData>) {
     const { isExpanded, node, nodeHeight, onNodeToggleExpand } = props;
 
-    const onClickExpandArrow = usePersistFn(() => {
+    const onClickExpandArrow = usePersistFn((e) => {
+        console.log(11, e.target.className)
         onNodeToggleExpand(node, !isExpanded);
     });
 

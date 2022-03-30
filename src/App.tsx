@@ -57,6 +57,7 @@ export default function App() {
 
   return (
     <div className="App">
+      <h1>stand-virtual-tree</h1>
       <Tree
         data={data}
         expandedKeys={expandedKeys}
@@ -67,7 +68,7 @@ export default function App() {
         getNodeIndent={getNodeIndent}
         getController={getController}
         shouldCollectHeight={true}
-        getNodeStyle={() => ({ border: "1px solid red" })}
+        getNodeStyle={() => ({ border: "1px solid grey" })}
       />
     </div>
   );
