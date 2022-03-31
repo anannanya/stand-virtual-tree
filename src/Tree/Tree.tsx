@@ -4,7 +4,7 @@ import React, { useCallback } from "react";
 import List, { IBaseListItem } from "../List";
 import { IListProps, ListController } from "../List/List";
 import { useFlatten } from "./hooks/useFlatten";
-import "./index.less";
+import "./index.css";
 import 'antd/dist/antd.css'
 
 export interface IBaseTreeNodeData<ITreeNodeData> extends IBaseListItem {

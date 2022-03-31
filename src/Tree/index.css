@@ -1,0 +1,50 @@
+.stand-tree-node {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;    
+  }
+  
+/* .stand-tree-node-expand-arrow {
+  font-size: 12px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: blue;
+  transition: transform ease 0.3s;
+  /* &.open {
+    transform: rotate(90deg);
+  }
+  &.close {
+  } 
+} */
+.stand-tree-node-expand-arrow.open {
+  font-size: 12px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: rgb(51, 47, 47);
+  transition: transform ease 0.3s;
+  transform: rotate(90deg);
+
+}
+.stand-tree-node-expand-arrow.close{
+  font-size: 12px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: rgb(51, 47, 47);
+  transition: transform ease 0.3s;
+  transform: rotate(0deg);
+}
+.stand-tree-node-content {
+  user-select: none;
+}
