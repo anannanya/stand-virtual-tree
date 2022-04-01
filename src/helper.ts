@@ -9,6 +9,7 @@ interface dataProps {
 
 export function generateTreeData(props: dataProps) {
     const { depth, sisterNum } = props;
+    console.log(234, depth, sisterNum)
     const realDepth = Array.isArray(depth)
         ? Math.ceil(Math.random() * (depth[1] - depth[0]) + depth[0])
         : depth;

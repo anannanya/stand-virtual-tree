@@ -21,7 +21,7 @@ type ITreePropsForList<ITreeNodeData> = Omit<
 interface ITreeProps<ITreeNodeData> extends ITreePropsForList<ITreeNodeData> {
     data: ITreeNodeData[];
     expandedKeys: string[];
-    renderNode?: (node: ITreeNodeData) => React.ReactElement;
+    renderNodeContent?: (node: ITreeNodeData) => React.ReactElement;
 
     // callback
     onNodeToggleExpand: (node: ITreeNodeData, expand: boolean) => void;
@@ -37,7 +37,7 @@ export function Tree<ITreeNodeData extends IBaseTreeNodeData<ITreeNodeData>>(
 ) {
     const {
         data,
-        renderNode,
+        renderNodeContent,
         expandedKeys,
         getNodeStyle,
         getNodeIndent,
@@ -61,19 +61,17 @@ export function Tree<ITreeNodeData extends IBaseTreeNodeData<ITreeNodeData>>(
     const renderItem = useCallback(
         (node: ITreeNodeData) => {
             const { itemHeight } = props;
-            if (renderNode) {
-                return renderNode(node);
-            }
             return (
                 <TreeNode
                     nodeHeight={itemHeight}
                     isExpanded={expandedKeys.includes(node.id)}
                     node={node}
                     onNodeToggleExpand={onNodeToggleExpand}
+                    renderNodeContent={renderNodeContent}
                 />
             );
         },
-        [expandedKeys, onNodeToggleExpand, renderNode, props.itemHeight]
+        [expandedKeys, onNodeToggleExpand, renderNodeContent, props.itemHeight]
     );
 
     return (

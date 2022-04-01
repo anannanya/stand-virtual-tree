@@ -6,6 +6,15 @@
   /* text-align: center; */
 }
 
+.select-child-div {
+  margin-bottom: 10px;
+
+}
+
+.select input {
+  width: 100px;
+}
+
 .list-wrapper {
   border: 1px solid gray;
   width: 500px;
@@ -16,5 +25,3 @@
   justify-content: flex-start;
   align-items: center;
 }
-
-
