@@ -31,6 +31,23 @@
   width: 100px;
 }
 
+.selectKey {
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+  margin: 5px 5px 5px 5px;
+  border: 1px solid grey;
+}
+
+.selectKey input {
+  width: 100px;
+  margin: 5px 5px 5px 0px;
+}
+
+.selectKey button {
+  margin-right: 5px;
+}
+
 .list-wrapper {
   border: 1px solid gray;
   width: 500px;

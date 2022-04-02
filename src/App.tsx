@@ -28,11 +28,17 @@ export default function App() {
   const [updateDepth, setUpdateDepth] = useState('')
   const [sisterNum, setSisterNum] = useState('')
   const [updateSisterNum, setUpdateSisterNum] = useState('')
+  const [jumpKey, setJumpKey] = useState('')
+  const [updateJumpKey, setUpdateJumpKey] = useState('')
 
   const sureParams = useCallback(() => {
     setUpdateDepth(depth)
     setUpdateSisterNum(sisterNum)
   }, [depth, sisterNum])
+
+  const sureJumpKey = useCallback(() => {
+    setUpdateJumpKey(jumpKey)
+  }, [jumpKey])
 
   const depthChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     if (isNaN(Number(e.target.value))) {
@@ -47,6 +53,14 @@ export default function App() {
       alert('请输入大于0的数字')
     } else {
       setSisterNum(e.target.value)
+    }
+  }, [])
+
+  const jumpKeyChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    if (isNaN(Number(e.target.value))) {
+      alert('请输入大于0的数字')
+    } else {
+      setJumpKey(e.target.value)
     }
   }, [])
 
@@ -89,9 +103,14 @@ export default function App() {
           <Button onClick={sureParams}>确认</Button>
         </div>
       </div>
+      <div className="selectKey">
+        输入跳转列号:&nbsp;<Input placeholder='key' value={jumpKey} onChange={jumpKeyChange} />
+        <Button onClick={sureJumpKey}>确认</Button>
+      </div>
 
       <Tree
         data={data}
+        jumpToKey={updateJumpKey}
         expandedKeys={expandedKeys}
         onNodeToggleExpand={onNodeToggleExpand}
         itemHeight={itemHeight}

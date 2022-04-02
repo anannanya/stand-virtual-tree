@@ -22,7 +22,7 @@ interface ITreeProps<ITreeNodeData> extends ITreePropsForList<ITreeNodeData> {
     data: ITreeNodeData[];
     expandedKeys: string[];
     renderNodeContent?: (node: ITreeNodeData) => React.ReactElement;
-
+    jumpToKey: string
     // callback
     onNodeToggleExpand: (node: ITreeNodeData, expand: boolean) => void;
 

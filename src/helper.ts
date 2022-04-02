@@ -21,25 +21,25 @@ export function generateTreeData(props: dataProps) {
         title: "0",
         children: []
     };
-    let helpFun = (treeData: A, depth: number, sisterNum: number) => {
+    let helpFun = (treeData: A, depth: number, sisterNum: number, fatherId: string) => {
         if (depth > 0) {
             for (let i = 0; i < sisterNum; i++) {
                 treeData.children[i] = {
-                    id: `${treeData.id}-${i}`,
-                    title: `${Array(Math.floor(Math.random() * 5))
-                        .fill(`${Math.random()}\n`)
+                    id: `${fatherId}-${i}`,
+                    title: `${Array(Math.floor(Math.random() * 5 + 1))
+                        .fill(`key:${fatherId}-${i} title:${Math.random()}\n`)
                         .join()}`,
                     children: []
                 };
             }
             depth = depth - 1;
             treeData.children.forEach((item) => {
-                helpFun(item, depth, sisterNum);
+                helpFun(item, depth, sisterNum, item.id);
             });
         } else {
             return;
         }
     };
-    helpFun(rootNode, realDepth, realSisNum);
+    helpFun(rootNode, realDepth, realSisNum, '0');
     return rootNode;
 }
