@@ -77,14 +77,19 @@ export default function App() {
     <div className="App">
       <h1>stand-virtual-tree</h1>
       <div className="select">
-        <div className='select-child-div'>
-          输入tree深度:<Input placeholder='key' value={depth} onChange={depthChange} />
+        <div className="inputArea">
+          <div className='select-child-div'>
+            树状列表深度:&nbsp;<Input placeholder='depth' value={depth} onChange={depthChange} />
+          </div>
+          <div className='select-child-div'>
+            同层级节点数:&nbsp;<Input placeholder='sisterNum' value={sisterNum} onChange={sisterNumChange} />
+          </div>
         </div>
-        <div className='select-child-div'>
-          输入横向条数:<Input placeholder='px' value={sisterNum} onChange={sisterNumChange} />
+        <div className="sureButton">
+          <Button onClick={sureParams}>确认</Button>
         </div>
       </div>
-      <Button onClick={sureParams}>确认</Button>
+
       <Tree
         data={data}
         expandedKeys={expandedKeys}
