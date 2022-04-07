@@ -1,6 +1,6 @@
 import { usePersistFn } from "ahooks";
 import { TreeNode } from "./TreeNode";
-import React, { useCallback } from "react";
+import React, { useCallback, useRef } from "react";
 import List, { IBaseListItem } from "../List";
 import { IListProps, ListController } from "../List/List";
 import { useFlatten } from "./hooks/useFlatten";
@@ -22,9 +22,8 @@ interface ITreeProps<ITreeNodeData> extends ITreePropsForList<ITreeNodeData> {
     data: ITreeNodeData[];
     expandedKeys: string[];
     renderNodeContent?: (node: ITreeNodeData) => React.ReactElement;
-    jumpToKey: string
     // callback
-    onNodeToggleExpand: (node: ITreeNodeData, expand: boolean) => void;
+    onNodeToggleExpand: (node: ITreeNodeData | string | string[], expand: boolean) => void;
 
     // getter
     getNodeStyle?: (node: ITreeNodeData) => React.CSSProperties;

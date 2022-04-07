@@ -8,7 +8,7 @@ import { IBaseListItem } from "./type";
 import { getFullListHeight, getItemOffsetTop, dealCritical } from "./utils/common";
 
 export interface ListController<IListItemData> {
-    scrollTo: (item: IListItemData) => void;
+    scrollTo: (item: IListItemData | string | { id: string }) => void;
 }
 
 export interface IListProps<IListItemData> {
@@ -18,7 +18,7 @@ export interface IListProps<IListItemData> {
     itemHeight: ((item: IListItemData) => number) | number;
     shouldCollectHeight?: boolean;
     className?: string;
-
+    buffer?: number;
     // callback
     onItemClick?: (item: IListItemData) => void;
     // getter
@@ -37,7 +37,8 @@ export default function List<IListItemData extends IBaseListItem>(
         getItemStyle,
         shouldCollectHeight,
         getController,
-        onItemClick
+        onItemClick,
+        buffer
     } = props;
     const boxContain = useRef<HTMLUListElement | null>(null);
     const [scrollTop, setScrollTop] = useState(0);
@@ -53,7 +54,6 @@ export default function List<IListItemData extends IBaseListItem>(
             actualItemheight =
                 typeof itemHeight === "function" ? itemHeight(item) : itemHeight;
         }
-        // console.log(333, actualItemheight)
         return actualItemheight;
     }, [shouldCollectHeight, updateId]);
 
@@ -61,7 +61,8 @@ export default function List<IListItemData extends IBaseListItem>(
         data,
         scrollTop,
         itemHeight: getItemHeight,
-        containerHeight
+        containerHeight,
+        buffer,
     });
 
     const fullListHeight = getFullListHeight(data, getItemHeight);
@@ -72,7 +73,6 @@ export default function List<IListItemData extends IBaseListItem>(
     );
 
     const maxScrollTop = fullListHeight - containerHeight;
-
     const visibleData = useMemo(() => data.slice(startIndex, endIndex + 1), [
         data,
         startIndex,
@@ -82,18 +82,16 @@ export default function List<IListItemData extends IBaseListItem>(
     const onScroll = usePersistFn(() => {
         if (!boxContain.current) return;
         const newScrollTop = Math.ceil(boxContain.current.scrollTop);
-        // console.log('gundong', newScrollTop, scrollTop)
         if (newScrollTop !== scrollTop) setScrollTop(boxContain.current.scrollTop);
     });
 
-    const scrollTo = usePersistFn((item: IListItemData | string) => {
+    const scrollTo = usePersistFn((item: IListItemData | string | { id: string }) => {
         if (typeof item === 'object') {
             const targetIndex = data.findIndex(({ id }) => item.id === id);
-            // console.log(23344, targetIndex)
+
             if (targetIndex > -1 && boxContain.current) {
                 let targetScrollTop = getItemOffsetTop(targetIndex, data, getItemHeight);
                 targetScrollTop = dealCritical(targetScrollTop, maxScrollTop);
-                console.log(23344, targetScrollTop)
                 setScrollTop(targetScrollTop);
                 boxContain.current.scrollTop = targetScrollTop;
             }
@@ -141,22 +139,20 @@ export default function List<IListItemData extends IBaseListItem>(
             className={className}
         >
             <div className="phantom" style={fillerStyle}>
-                <div>
-                    {visibleData.map((listItem, index) => {
-                        return (
-                            <ListItem<IListItemData>
-                                renderItem={renderItem}
-                                listItem={listItem}
-                                heightMap={heightMap}
-                                getItemStyle={getItemStyle}
-                                update={setUpdateId}
-                                key={listItem.id}
-                                isLastItem={index === visibleData.length - 1}
-                                onItemClick={onItemClick}
-                            />
-                        );
-                    })}
-                </div>
+                {visibleData.map((listItem, index) => {
+                    return (
+                        <ListItem<IListItemData>
+                            renderItem={renderItem}
+                            listItem={listItem}
+                            heightMap={heightMap}
+                            getItemStyle={getItemStyle}
+                            update={setUpdateId}
+                            key={listItem.id}
+                            isLastItem={index === visibleData.length - 1}
+                            onItemClick={onItemClick}
+                        />
+                    );
+                })}
             </div>
         </ul>
     );

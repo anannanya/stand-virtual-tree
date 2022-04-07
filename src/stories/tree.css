@@ -1,0 +1,10 @@
+.sureButton {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.wrapper {
+    border: 1px solid rgb(240, 240, 240);
+}

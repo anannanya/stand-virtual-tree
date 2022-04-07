@@ -53,7 +53,7 @@ export default memo(function ListItem<IListItemData extends IBaseListItem>(
     });
 
     return (
-        <div style={style} ref={listDidMMount} onClick={onClick}>
+        <div className="stand-list__item" style={style} ref={listDidMMount} onClick={onClick}>
             {renderItem(listItem)}
         </div>
     );

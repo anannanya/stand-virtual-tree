@@ -1,10 +1,16 @@
 import { A } from './App'
+import { sentence, paragraph } from 'txtgen/dist/txtgen.esm'
 
 type scope = [number, number];
 type accurate = number;
 interface dataProps {
     depth: scope | accurate;
     sisterNum: scope | accurate;
+}
+interface itemData {
+    id: string;
+    title: string;
+    children: itemData[]
 }
 
 export function generateTreeData(props: dataProps) {
@@ -16,19 +22,34 @@ export function generateTreeData(props: dataProps) {
     const realSisNum = Array.isArray(sisterNum)
         ? Math.ceil(Math.random() * (sisterNum[1] - sisterNum[0]) + sisterNum[0])
         : sisterNum;
-    let rootNode = {
+    let rootNode: itemData = {
         id: '0',
-        title: "0",
+        title: `0: ${sentence()}`,
         children: []
     };
+    console.time('www')
+    // let count = 0
+    // let root = rootNode
+    // while (count < depth) {
+    //     let children = root.children
+    //     for (let i = 0; i < sisterNum; i++) {
+    //         root.children[i] = {
+    //             id: `${root.id}-${i}`,
+    //             title: `${root.id}-${i}: ${sentence()}`,
+    //             children: []
+    //         }
+
+    //     }
+    //     root = children
+    //     count++
+    // }
     let helpFun = (treeData: A, depth: number, sisterNum: number, fatherId: string) => {
+        // console.log(1111)
         if (depth > 0) {
             for (let i = 0; i < sisterNum; i++) {
                 treeData.children[i] = {
                     id: `${fatherId}-${i}`,
-                    title: `${Array(Math.floor(Math.random() * 5 + 1))
-                        .fill(`key:${fatherId}-${i} title:${Math.random()}\n`)
-                        .join()}`,
+                    title: `${fatherId}-${i}: ${sentence()}`,
                     children: []
                 };
             }
@@ -41,5 +62,8 @@ export function generateTreeData(props: dataProps) {
         }
     };
     helpFun(rootNode, realDepth, realSisNum, '0');
+    console.timeEnd('www')
+
+    console.log(rootNode)
     return rootNode;
 }

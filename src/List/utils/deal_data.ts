@@ -7,7 +7,7 @@ interface IUseVisibleDataProps<T> {
     containerHeight: number;
     itemHeight: number | ((node: T, index: number) => number);
     useVirtual?: boolean;
-    overscan?: number;
+    buffer?: number;
 }
 
 function useVisibleData<T>(props: IUseVisibleDataProps<T>) {
@@ -17,7 +17,7 @@ function useVisibleData<T>(props: IUseVisibleDataProps<T>) {
         containerHeight,
         itemHeight,
         useVirtual = true,
-        overscan = 0
+        buffer = 0
     } = props;
     const { startIndex, endIndex } = useMemo(() => {
         let startIndex = -1;
@@ -56,16 +56,16 @@ function useVisibleData<T>(props: IUseVisibleDataProps<T>) {
             }
         }
 
-        startIndex = startIndex === -1 ? 0 : Math.max(0, startIndex - overscan);
+        startIndex = startIndex === -1 ? 0 : Math.max(0, startIndex - buffer);
         endIndex =
             endIndex === -1
                 ? data.length - 1
-                : Math.min(data.length - 1, endIndex + overscan);
+                : Math.min(data.length - 1, endIndex + buffer);
         return {
             startIndex,
             endIndex
         };
-    }, [scrollTop, data, containerHeight, itemHeight, useVirtual, overscan]);
+    }, [scrollTop, data, containerHeight, itemHeight, useVirtual, buffer]);
 
     // console.log(888, startIndex, endIndex)
     return {

@@ -1,9 +1,11 @@
-import React, { useMemo, useCallback, useState, useRef } from "react";
+import React, { useMemo, useCallback, useState, useRef, useEffect } from "react";
 import { generateTreeData } from "./helper";
 import "./App.css";
 import { Button, Input } from 'antd';
+import useNextTick from "./hooks/useNextTick";
 import { IBaseTreeNodeData, Tree } from "./Tree/Tree";
 import { usePersistFn } from "ahooks";
+import { ListController } from "./List/List";
 
 export interface A {
   id: string;
@@ -22,8 +24,9 @@ const getNodeIndent = (item: A, level: number) => {
 
 export default function App() {
   const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
-  const treeController = useRef();
+  const treeController = useRef<ListController<A | string>>();
 
+  const { updateId, setUpdate } = useNextTick()
   const [depth, setDepth] = useState('')
   const [updateDepth, setUpdateDepth] = useState('')
   const [sisterNum, setSisterNum] = useState('')
@@ -38,6 +41,7 @@ export default function App() {
 
   const sureJumpKey = useCallback(() => {
     setUpdateJumpKey(jumpKey)
+    expandNode(jumpKey)
   }, [jumpKey])
 
   const depthChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,11 +61,9 @@ export default function App() {
   }, [])
 
   const jumpKeyChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    if (isNaN(Number(e.target.value))) {
-      alert('请输入大于0的数字')
-    } else {
-      setJumpKey(e.target.value)
-    }
+
+    setJumpKey(e.target.value)
+
   }, [])
 
   const data: A[] = useMemo(() => {
@@ -75,9 +77,13 @@ export default function App() {
   const onNodeToggleExpand = usePersistFn((node, expand: boolean) => {
     let newExpandedKeys = expandedKeys.slice();
     if (expand) {
-      newExpandedKeys.push(node.id);
+      if (Array.isArray(node)) {
+        newExpandedKeys = newExpandedKeys.concat(node);
+      } else {
+        newExpandedKeys.push(node.id || node);
+      }
     } else {
-      newExpandedKeys = newExpandedKeys.filter((key) => key !== node.id);
+      newExpandedKeys = newExpandedKeys.filter((key) => key !== (node.id || node));
     }
     setExpandedKeys(newExpandedKeys);
   });
@@ -86,6 +92,34 @@ export default function App() {
     treeController.current = ref;
   });
 
+  const expandNode = useCallback((jumpKey: string) => {
+    if (jumpKey) {
+      if (jumpKey === '0') {
+        onNodeToggleExpand(jumpKey, true)
+      } else {
+        const father = jumpKey.split('-')
+        let fatherId: string[] = []
+        father.reduce((prev, next) => {
+          fatherId.push(prev)
+          return `${prev}-${next}`
+        })
+        onNodeToggleExpand(fatherId, true)
+      }
+    }
+    const newUpdateId = Number(updateId) + 1
+    setUpdate(`${newUpdateId}`, () => {
+      console.log(12345, jumpKey)
+      treeController.current?.scrollTo({ id: jumpKey })
+    })
+  }, [])
+
+  // useEffect(() => {
+  //   // console.log(jumpKeyIdObj)
+  //   if (jumpKeyIdObj.id) {
+  //     treeController.current?.scrollTo(jumpKeyIdObj)
+  //     setJumpKeyObj({ id: '' })
+  //   }
+  // })
 
   return (
     <div className="App">
@@ -104,7 +138,7 @@ export default function App() {
         </div>
       </div>
       <div className="selectKey">
-        输入跳转列号:&nbsp;<Input placeholder='key' value={jumpKey} onChange={jumpKeyChange} />
+        输入跳转列号:&nbsp;<Input placeholder='eg: 0-0-2' value={jumpKey} onChange={jumpKeyChange} />
         <Button onClick={sureJumpKey}>确认</Button>
       </div>
 

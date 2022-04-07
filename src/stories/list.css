@@ -1,0 +1,22 @@
+.list-container {
+    border: 1px solid rgb(240, 240, 240);
+    margin-top: 12px;
+}
+
+.story-h2 {
+    color: #000000d9;
+    font-weight: 500;
+    margin-bottom: 22px;
+    font-family: Avenir, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji, sans-serif;
+}
+
+.list-container ul {
+    margin: 0;
+}
+
+.demo-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 20px;
+}
