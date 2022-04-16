@@ -24,7 +24,7 @@ export function generateTreeData(props: dataProps) {
         : sisterNum;
     let rootNode: itemData = {
         id: '0',
-        title: `0: ${sentence()}`,
+        title: `0`,
         children: []
     };
     console.time('www')
@@ -49,7 +49,8 @@ export function generateTreeData(props: dataProps) {
             for (let i = 0; i < sisterNum; i++) {
                 treeData.children[i] = {
                     id: `${fatherId}-${i}`,
-                    title: `${fatherId}-${i}: ${sentence()}`,
+                    // title: `${fatherId}-${i}: ${sentence()}`,
+                    title: `${fatherId}-${i}`,
                     children: []
                 };
             }

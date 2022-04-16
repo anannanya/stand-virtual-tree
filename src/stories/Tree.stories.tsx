@@ -1,5 +1,6 @@
 import { useMemo, useState, useCallback, useRef } from "react";
 import { Input, Switch, Button, message } from 'antd';
+import { FolderOutlined } from '@ant-design/icons';
 import { sentence, paragraph } from 'txtgen/dist/txtgen.esm'
 import 'antd/dist/antd.css'
 
@@ -28,7 +29,6 @@ const ITEM_HEIGHT = 40;
 const itemHeight = () => ITEM_HEIGHT;
 const staticHeightitemStyle = {
     boxSizing: 'border-box',
-    height: ITEM_HEIGHT,
 } as React.CSSProperties;
 
 const getNodeIndent = (item: ITreeData, level: number) => {
@@ -43,31 +43,6 @@ const Template: ComponentStory<typeof Tree> = (args) => {
     const treeController = useRef<ListController<ITreeData>>();
 
     const { updateId, setUpdate } = useNextTick()
-    const [depth, setDepth] = useState('')
-    const [updateDepth, setUpdateDepth] = useState('')
-    const [sisterNum, setSisterNum] = useState('')
-    const [updateSisterNum, setUpdateSisterNum] = useState('')
-
-    const sureParams = useCallback(() => {
-        setUpdateDepth(depth)
-        setUpdateSisterNum(sisterNum)
-    }, [depth, sisterNum])
-
-    const depthChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        if (isNaN(Number(e.target.value))) {
-            alert('请输入大于0的数字')
-        } else {
-            setDepth(e.target.value)
-        }
-    }, [])
-
-    const sisterNumChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        if (isNaN(Number(e.target.value))) {
-            alert('请输入大于0的数字')
-        } else {
-            setSisterNum(e.target.value)
-        }
-    }, [])
 
     const getTreeNodeStyle = useCallback(() => {
         return staticHeightitemStyle
@@ -75,10 +50,10 @@ const Template: ComponentStory<typeof Tree> = (args) => {
 
     const data: ITreeData[] = useMemo(() => {
         return [generateTreeData({
-            depth: Number(updateDepth) || 3,
-            sisterNum: Number(updateSisterNum) || 5,
+            depth: 5,
+            sisterNum: 5,
         })]
-    }, [updateDepth, updateSisterNum])
+    }, [])
 
 
     const onNodeToggleExpand = usePersistFn((node, expand: boolean) => {
@@ -158,43 +133,16 @@ const Template2: ComponentStory<typeof Tree> = (args) => {
     const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
     const treeController = useRef<ListController<ITreeData>>();
 
-    const { updateId, setUpdate } = useNextTick()
-    const [depth, setDepth] = useState('')
-    const [updateDepth, setUpdateDepth] = useState('')
-    const [sisterNum, setSisterNum] = useState('')
-    const [updateSisterNum, setUpdateSisterNum] = useState('')
-
-    const sureParams = useCallback(() => {
-        setUpdateDepth(depth)
-        setUpdateSisterNum(sisterNum)
-    }, [depth, sisterNum])
-
-    const depthChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        if (isNaN(Number(e.target.value))) {
-            alert('请输入大于0的数字')
-        } else {
-            setDepth(e.target.value)
-        }
-    }, [])
-
-    const sisterNumChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        if (isNaN(Number(e.target.value))) {
-            alert('请输入大于0的数字')
-        } else {
-            setSisterNum(e.target.value)
-        }
-    }, [])
-
     const getTreeNodeStyle = useCallback(() => {
         return staticHeightitemStyle
     }, [])
 
     const data: ITreeData[] = useMemo(() => {
         return [generateTreeData({
-            depth: Number(updateDepth) || 3,
-            sisterNum: Number(updateSisterNum) || 5,
+            depth: 5,
+            sisterNum: 5,
         })]
-    }, [updateDepth, updateSisterNum])
+    }, [])
 
 
     const onNodeToggleExpand = usePersistFn((node, expand: boolean) => {
@@ -215,43 +163,21 @@ const Template2: ComponentStory<typeof Tree> = (args) => {
         treeController.current = ref;
     });
 
-    const expandNode = useCallback((jumpKey: string) => {
-        if (jumpKey) {
-            if (jumpKey === '0') {
-                onNodeToggleExpand(jumpKey, true)
-            } else {
-                const father = jumpKey.split('-')
-                let fatherId: string[] = []
-                father.reduce((prev, next) => {
-                    fatherId.push(prev)
-                    return `${prev}-${next}`
-                })
-                onNodeToggleExpand(fatherId, true)
-            }
-        }
-        const newUpdateId = Number(updateId) + 1
-        setUpdate(`${newUpdateId}`, () => {
-            console.log(12345, jumpKey)
-            treeController.current?.scrollTo({ id: jumpKey })
-        })
-    }, [])
+    const renderArrow = () => {
+        return (
+            <div>
+
+            </div>
+        )
+    }
+    const renderIcon = () => {
+        return <FolderOutlined />
+    }
 
     return (
         <>
-            <h2>基础用法2</h2>
-            <div className="select">
-                <div className="inputArea">
-                    <div className='select-child-div'>
-                        树状列表深度:&nbsp;<Input placeholder='depth' value={depth} onChange={depthChange} style={inputStyle} />
-                    </div>
-                    <div className='select-child-div'>
-                        同层级节点数:&nbsp;<Input placeholder='sisterNum' value={sisterNum} onChange={sisterNumChange} style={inputStyle} />
-                    </div>
-                </div>
-                <div className="sureButton">
-                    <Button onClick={sureParams}>确认</Button>
-                </div>
-            </div>
+            <h2>添加自定义Icon</h2>
+
             <div className="wrapper">
                 <Tree
                     data={data}
@@ -264,11 +190,13 @@ const Template2: ComponentStory<typeof Tree> = (args) => {
                     getController={getController}
                     shouldCollectHeight={true}
                     getNodeStyle={getTreeNodeStyle}
+                    renderArrow={renderArrow}
+                    renderIcon={renderIcon}
                 />
             </div>
 
         </>
     )
 };
-export const Basic2 = Template2.bind({});
+export const CustomIcon = Template2.bind({});
 

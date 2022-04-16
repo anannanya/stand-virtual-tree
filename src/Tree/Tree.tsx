@@ -24,6 +24,9 @@ interface ITreeProps<ITreeNodeData> extends ITreePropsForList<ITreeNodeData> {
     renderNodeContent?: (node: ITreeNodeData) => React.ReactElement;
     // callback
     onNodeToggleExpand: (node: ITreeNodeData | string | string[], expand: boolean) => void;
+    //custom
+    renderIcon?: () => React.ReactElement
+    renderArrow?: () => React.ReactElement
 
     // getter
     getNodeStyle?: (node: ITreeNodeData) => React.CSSProperties;
