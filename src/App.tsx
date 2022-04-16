@@ -144,7 +144,6 @@ export default function App() {
 
       <Tree
         data={data}
-        jumpToKey={updateJumpKey}
         expandedKeys={expandedKeys}
         onNodeToggleExpand={onNodeToggleExpand}
         itemHeight={itemHeight}

@@ -1,7 +1,6 @@
 import { useMemo, useState, useCallback, useRef } from "react";
 import { Input, Switch, Button, message } from 'antd';
 import { FolderOutlined } from '@ant-design/icons';
-import { sentence, paragraph } from 'txtgen/dist/txtgen.esm'
 import 'antd/dist/antd.css'
 
 import Tree from "../Tree";

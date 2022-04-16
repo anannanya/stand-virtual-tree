@@ -1,5 +1,4 @@
 import { A } from './App'
-import { sentence, paragraph } from 'txtgen/dist/txtgen.esm'
 
 type scope = [number, number];
 type accurate = number;

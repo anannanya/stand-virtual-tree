@@ -70,7 +70,6 @@
     "@storybook/react": "^6.4.20",
     "@storybook/testing-library": "0.0.9",
     "@types/faker": "^6.6.9",
-    "faker": "^6.6.6",
-    "webpack": "^5.71.0"
+    "faker": "^6.6.6"
   }
 }

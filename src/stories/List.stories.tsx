@@ -1,6 +1,5 @@
 import { useMemo, useState, useCallback, useRef } from "react";
 import { Input, Switch, Button, message } from 'antd';
-import { sentence, paragraph } from 'txtgen/dist/txtgen.esm'
 import 'antd/dist/antd.css'
 
 import List from "../List";
@@ -52,7 +51,7 @@ const Template: ComponentStory<typeof List> = (args) => {
         const data = new Array(actualDataNum).fill("").map((item, index) => {
             return {
                 id: `${index}`,
-                title: `${index}:  ${sentence()}`
+                title: `${index}}`
             }
         })
         return data
@@ -188,7 +187,7 @@ const TemplateForDifferentItemHeight: ComponentStory<typeof List> = (args) => {
         const data = new Array(actualDataNum).fill("").map((item, index) => {
             return {
                 id: `${index}`,
-                title: `${index}:  ${sentence()}`
+                title: `${index}`
             }
         })
         return data
@@ -328,7 +327,7 @@ const BufferTemplate: ComponentStory<typeof List> = (args) => {
         const data = new Array(actualDataNum).fill("").map((item, index) => {
             return {
                 id: `${index}`,
-                title: `${index}:  ${sentence()}`
+                title: `${index}`
             }
         })
         return data
@@ -442,7 +441,7 @@ const DynamicItemHeightTemplate: ComponentStory<typeof List> = (args) => {
         const data = new Array(actualDataNum).fill("").map((item, index) => {
             return {
                 id: `${index}`,
-                title: `${index}:  ${paragraph(Math.floor(Math.random() * 10 + 3))}`
+                title: `${index}`
             }
         })
         return data
@@ -558,7 +557,7 @@ const ScrollToNodeTemplate: ComponentStory<typeof List> = (args) => {
         const data = new Array(actualDataNum).fill("").map((item, index) => {
             return {
                 id: `${index}`,
-                title: `${index}:  ${sentence()}`
+                title: `${index}`
             }
         })
         return data
