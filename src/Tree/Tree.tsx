@@ -62,7 +62,7 @@ export function Tree<ITreeNodeData extends IBaseTreeNodeData<ITreeNodeData>>(
 
     const renderItem = useCallback(
         (node: ITreeNodeData) => {
-            const { itemHeight } = props;
+            const { itemHeight, renderIcon, renderArrow } = props;
             return (
                 <TreeNode
                     nodeHeight={itemHeight}
@@ -70,6 +70,8 @@ export function Tree<ITreeNodeData extends IBaseTreeNodeData<ITreeNodeData>>(
                     node={node}
                     onNodeToggleExpand={onNodeToggleExpand}
                     renderNodeContent={renderNodeContent}
+                    renderIcon={renderIcon}
+                    renderArrow={renderArrow}
                 />
             );
         },

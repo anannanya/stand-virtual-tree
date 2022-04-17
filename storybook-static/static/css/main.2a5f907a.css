@@ -44,11 +44,11 @@ ul{
     padding-left: 20px;
 }
 .stand-tree-node {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;    
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 /* .stand-tree-node-expand-arrow {
   font-size: 12px;
   width: 24px;
@@ -82,7 +82,8 @@ ul{
           transform: rotate(90deg);
 
 }
-.stand-tree-node-expand-arrow.close{
+
+.stand-tree-node-expand-arrow.close {
   font-size: 12px;
   flex-shrink: 0;
   width: 24px;
@@ -98,10 +99,14 @@ ul{
   -webkit-transform: rotate(0deg);
           transform: rotate(0deg);
 }
+
 .stand-tree-node-content {
   -webkit-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 .sureButton {
     display: flex;
@@ -114,4 +119,4 @@ ul{
     border: 1px solid rgb(240, 240, 240);
 }
 
-/*# sourceMappingURL=main.ed8d233f.css.map*/
+/*# sourceMappingURL=main.2a5f907a.css.map*/

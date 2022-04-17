@@ -4,7 +4,7 @@ import 'antd/dist/antd.css'
 
 import List from "../List";
 import { ListController } from '../List/List'
-
+import { sentence, paragraph } from './txtgen'
 import "./list.css";
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
@@ -51,7 +51,7 @@ const Template: ComponentStory<typeof List> = (args) => {
         const data = new Array(actualDataNum).fill("").map((item, index) => {
             return {
                 id: `${index}`,
-                title: `${index}}`
+                title: `${index} ${sentence()}`
             }
         })
         return data
@@ -187,7 +187,7 @@ const TemplateForDifferentItemHeight: ComponentStory<typeof List> = (args) => {
         const data = new Array(actualDataNum).fill("").map((item, index) => {
             return {
                 id: `${index}`,
-                title: `${index}`
+                title: `${index} ${sentence()}`
             }
         })
         return data
@@ -327,7 +327,7 @@ const BufferTemplate: ComponentStory<typeof List> = (args) => {
         const data = new Array(actualDataNum).fill("").map((item, index) => {
             return {
                 id: `${index}`,
-                title: `${index}`
+                title: `${index} ${sentence()}`
             }
         })
         return data
@@ -441,7 +441,7 @@ const DynamicItemHeightTemplate: ComponentStory<typeof List> = (args) => {
         const data = new Array(actualDataNum).fill("").map((item, index) => {
             return {
                 id: `${index}`,
-                title: `${index}`
+                title: `${index} ${paragraph()}`
             }
         })
         return data
@@ -557,7 +557,7 @@ const ScrollToNodeTemplate: ComponentStory<typeof List> = (args) => {
         const data = new Array(actualDataNum).fill("").map((item, index) => {
             return {
                 id: `${index}`,
-                title: `${index}`
+                title: `${index} ${sentence()}`
             }
         })
         return data
@@ -602,8 +602,7 @@ const ScrollToNodeTemplate: ComponentStory<typeof List> = (args) => {
     return (
         <>
             <h2>滚动到指定节点</h2>
-            <Input placeholder='请输入数据条数, 回车或点击按钮确认' onPressEnter={scrollToNode} style={inputStyle} />
-            <Button onClick={scrollToNode}>确认</Button>
+            <Input placeholder='请输入数据条数, 回车确认' onPressEnter={scrollToNode} style={inputStyle} />
             <div className="list-container">
                 <List
                     data={data}

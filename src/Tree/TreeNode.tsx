@@ -43,34 +43,27 @@ export function TreeNode<
     };
 
     const renderNodeContent = () => {
-        if (renderIcon) {
-            if (props.renderNodeContent) {
-                return (
-                    <div>
-                        {renderIcon()}
-                        {props.renderNodeContent(node)}
-                    </div>
-                );
-            }
-            return <div className={`${cls}-content`}>{renderIcon()}{node.title}</div>;
-        } else {
-            if (props.renderNodeContent) {
-                return props.renderNodeContent(node)
-            }
-            return <div className={`${cls}-content`}>{node.title}</div>;
+        if (props.renderNodeContent) {
+            return props.renderNodeContent(node)
         }
+        return (
+            <>
+                {renderIcon && renderIcon()}
+                <div className={`${cls}-content`}>{node.title}</div>;
+            </>
+        )
 
     };
 
-    // const style = useMemo(
-    //   () => ({
-    //     height: typeof nodeHeight === "number" ? nodeHeight : nodeHeight(node)
-    //   }),
-    //   [nodeHeight, node]
-    // );
+    const style = useMemo(
+        () => ({
+            height: typeof nodeHeight === "number" ? nodeHeight : nodeHeight(node)
+        }),
+        [nodeHeight, node]
+    );
 
     return (
-        <div className={cls}>
+        <div className={cls} style={style}>
             {renderExpandArrow()}
             {renderNodeContent()}
         </div>

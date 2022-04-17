@@ -1,9 +1,9 @@
 .stand-tree-node {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;    
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 /* .stand-tree-node-expand-arrow {
   font-size: 12px;
   width: 24px;
@@ -34,7 +34,8 @@
   transform: rotate(90deg);
 
 }
-.stand-tree-node-expand-arrow.close{
+
+.stand-tree-node-expand-arrow.close {
   font-size: 12px;
   flex-shrink: 0;
   width: 24px;
@@ -47,6 +48,10 @@
   transition: transform ease 0.3s;
   transform: rotate(0deg);
 }
+
 .stand-tree-node-content {
   user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
